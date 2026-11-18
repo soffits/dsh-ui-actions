@@ -76,8 +76,10 @@ export function createBar({ useWords, useLanguage, chat, start, open }) {
     const label = pickText(action.label, language) || t(action.kind === 'chat' && action.id === DEFAULT_CHAT.id ? 'chatAbout' : action.kind)
     const title = shown === 'sending' ? t('sending') : shown === 'pending' ? t('pending') : shown === 'done' ? t('handled') : shown === 'unhandled' ? t('unhandled') : error ?? label
     const icon = shown === 'done' ? 'done' : shown === 'unhandled' ? 'unhandled' : action.kind
-    const className = `ua-btn${compact ? ' ua-icon' : ''}`
-    const content = [h(Glyph, { key: 'i', name: icon }), !compact && h('span', { key: 'l' }, label)]
+    // A labelled done is a choice (one answer of a question): its words are what it means, so it keeps them on a row.
+    const iconOnly = compact && !(action.kind === 'done' && pickText(action.label, language))
+    const className = `ua-btn${iconOnly ? ' ua-icon' : ''}`
+    const content = [h(Glyph, { key: 'i', name: icon }), !iconOnly && h('span', { key: 'l' }, label)]
 
     if (action.kind === 'link') {
       const url = action.payload?.url
@@ -111,7 +113,7 @@ export function createBar({ useWords, useLanguage, chat, start, open }) {
     return h('span', { className: 'ua-wrap' },
       h('button', { type: 'button', className, title, 'aria-label': title !== label ? `${label} (${title})` : label, 'data-state': shown ?? undefined, disabled: busy, onClick }, content),
       menu && h(SnoozeMenu, { onPick: until => send({ until }), onClose: () => setMenu(false) }),
-      error && !compact && h('span', { className: 'ua-error', role: 'alert' }, error))
+      error && !iconOnly && h('span', { className: 'ua-error', role: 'alert' }, error))
   }
 
   /**

@@ -1,4 +1,4 @@
-/* @soffits/dsh-ui-actions 0.2.0: built by scripts/build.mjs from src/client/ and locale/. Do not edit. */
+/* @soffits/dsh-ui-actions 0.2.1: built by scripts/build.mjs from src/client/ and locale/. Do not edit. */
 window.__ModuleLoader__.load({
   id: "@soffits/dsh-ui-actions",
   factory: (require) => {
@@ -269,8 +269,9 @@ function createBar({ useWords, useLanguage, chat, start, open }) {
     const label = pickText(action.label, language) || t(action.kind === "chat" && action.id === DEFAULT_CHAT.id ? "chatAbout" : action.kind);
     const title = shown === "sending" ? t("sending") : shown === "pending" ? t("pending") : shown === "done" ? t("handled") : shown === "unhandled" ? t("unhandled") : error ?? label;
     const icon = shown === "done" ? "done" : shown === "unhandled" ? "unhandled" : action.kind;
-    const className = `ua-btn${compact ? " ua-icon" : ""}`;
-    const content = [(0, import_react.createElement)(Glyph, { key: "i", name: icon }), !compact && (0, import_react.createElement)("span", { key: "l" }, label)];
+    const iconOnly = compact && !(action.kind === "done" && pickText(action.label, language));
+    const className = `ua-btn${iconOnly ? " ua-icon" : ""}`;
+    const content = [(0, import_react.createElement)(Glyph, { key: "i", name: icon }), !iconOnly && (0, import_react.createElement)("span", { key: "l" }, label)];
     if (action.kind === "link") {
       const url = action.payload?.url;
       const external = /^https?:/i.test(url ?? "");
@@ -305,7 +306,7 @@ function createBar({ useWords, useLanguage, chat, start, open }) {
       { className: "ua-wrap" },
       (0, import_react.createElement)("button", { type: "button", className, title, "aria-label": title !== label ? `${label} (${title})` : label, "data-state": shown ?? void 0, disabled: busy, onClick }, content),
       menu && (0, import_react.createElement)(SnoozeMenu, { onPick: (until) => send({ until }), onClose: () => setMenu(false) }),
-      error && !compact && (0, import_react.createElement)("span", { className: "ua-error", role: "alert" }, error)
+      error && !iconOnly && (0, import_react.createElement)("span", { className: "ua-error", role: "alert" }, error)
     );
   }
   function StepButton({ action, state, about, onPress }) {

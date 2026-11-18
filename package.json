@@ -1,6 +1,6 @@
 {
   "name": "@soffits/dsh-ui-actions",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Shared action buttons for DeepSeek Harness plugin pages (ask, done, snooze, open), and items attached to a chat as a card: a removable card in the message box, the same card in the sent message, compact structured text for the model.",
   "type": "module",
   "license": "MIT",

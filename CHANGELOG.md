@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+A labelled `done` keeps its words on a compact row: it is a choice (one answer of a question, such as "White" or "Oak"), and as a bare check mark several of them looked the same.
+
 ## 0.2.0
 
 - Suggested next steps: a `step` action is a button whose label is a concrete next step; one tap records the press with the plugin, then sends the step and the item into a new conversation (or a given one) as the person, without a draft, and the button turns into a link to that conversation. Steps come first, look different from the fixed buttons, and wrap to full width on phones.
