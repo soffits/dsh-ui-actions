@@ -1,3 +1,5 @@
+> **Moved.** This package is now part of [@soffits/dsh-plugin-sdk](https://github.com/soffits/dsh-plugin-sdk) (`actions/`), with its history. This repository is archived.
+
 # dsh-ui-actions
 
 Shared action buttons for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) plugin pages, and a way to ask the agent about an item that keeps the item as a card instead of a lump of text.
